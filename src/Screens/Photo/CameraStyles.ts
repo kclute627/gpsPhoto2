@@ -6,7 +6,7 @@ import { colors, SCREEN_WIDTH } from "../../theme";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.darkBlue,
+    backgroundColor: 'black',
   },
   top: {
     width: SCREEN_WIDTH,
