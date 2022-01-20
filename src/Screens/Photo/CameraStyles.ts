@@ -57,4 +57,21 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  imageContainer: {
+    flex: 1,
+  },
+  middlePreview: {
+    
+    flex: 1,
+  },
+  latLngView: {
+    position: 'absolute', 
+    
+    backgroundColor: 'rgba(59, 59, 59, 0.4)',
+
+  },
+  latText: {
+    fontSize: 20,
+    color: 'white',
+  },
 });

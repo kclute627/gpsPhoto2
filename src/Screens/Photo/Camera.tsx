@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react';
-import {View, Text, Button, Pressable, Image} from 'react-native';
+import {View, Pressable} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Animated, {
   useAnimatedStyle,
@@ -7,6 +7,7 @@ import Animated, {
   Easing,
   withTiming,
 } from 'react-native-reanimated';
+import Geolocation from 'react-native-geolocation-service';
 import {
   useCameraDevices,
   Camera as CameraComponent,
@@ -15,14 +16,8 @@ import {useIsFocused} from '@react-navigation/core';
 import Loading from '../../Components/Loading/Loading';
 import {styles} from './CameraStyles';
 import {colors} from '../../theme';
-import {PhotoType} from '../../types/types';
 import {useIsForeground} from '../../Hooks/hooks';
-
-//types
-import type {
-  TakePhotoOptions,
-  TakeSnapshotOptions,
-} from 'react-native-vision-camera';
+import {getCameraPermission, getLocation, getFullDate} from './CameraFunctions';
 
 import ImagePrev from './ImagePrev';
 
@@ -31,20 +26,36 @@ export default function Camera() {
   const [camView, setCamView] = useState<'back' | 'front'>('back');
   const [loading, setLoading] = useState(false);
 
+  //gps
+  const [forceLocation, setForceLocation] = useState(true);
+  const [highAccuracy, setHighAccuracy] = useState(false);
+  const [locationDialog, setLocationDialog] = useState(true);
+
+  const [useLocationManager, setUseLocationManager] = useState(false);
+  const [location, setLocation] = useState(null);
+
   //photo
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState<null | string>(null);
 
-  const getCameraPermission = async () => {
-    await CameraComponent.getCameraPermissionStatus();
-    await CameraComponent.requestCameraPermission();
-  };
+  //get GPS CORDS
 
+  useEffect(() => {
+    getLocation({
+      setLocation,
+      highAccuracy,
+      forceLocation,
+      useLocationManager,
+      locationDialog,
+    });
+  }, []);
+
+  //permissions and top and bottom transition
   useEffect(() => {
     getCameraPermission();
 
     setTimeout(() => {
       movingOpacity.value = 0.8;
-    }, 1300);
+    }, 600);
   }, []);
 
   const devices = useCameraDevices('wide-angle-camera');
@@ -78,8 +89,8 @@ export default function Camera() {
 
   const takePhotoOptions = {
     photoCodec: 'jpeg',
-    
-    quality: 70,
+
+    quality: 0.5,
     skipMetadata: true,
   };
 
@@ -98,8 +109,15 @@ export default function Camera() {
     setLoading(false);
   };
 
-  if (device == null || loading) return <Loading />;
-  if (image != null) return <ImagePrev source={`file://${image}`} />;
+  if (device == null || loading || !location) return <Loading />;
+  if (image != null)
+    return (
+      <ImagePrev
+        source={`file://${image}`}
+        location={location}
+        time={getFullDate()}
+      />
+    );
   if (isFocused)
     return (
       <CameraComponent
