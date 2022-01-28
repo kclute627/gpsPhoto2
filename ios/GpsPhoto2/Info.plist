@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>GpsPhoto2</string>
+	<string>Gps Photo</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -39,10 +39,12 @@
 	<string>GPS PHOTO needs access to your Camera</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Allow GPS PHOTO to Access your location</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Allow GPS PHOTO to Access your locations</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Your message to user when the microphone is accessed for the first time</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>GPS PHOTO photos description.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>

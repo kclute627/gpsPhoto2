@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    position: 'relative',
+
   },
   innerView: {},
   switchBtn: {
@@ -74,4 +74,17 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     color: 'white',
   },
+  previewBtnView:{
+    
+    justifyContent: 'space-around',
+    flexDirection: 'row'
+  },
+  previewBtn: {
+    color: colors.white,
+    fontSize: 20,
+    marginBottom: 20,
+    
+    
+  }
+
 });

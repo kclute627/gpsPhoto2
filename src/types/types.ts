@@ -1,3 +1,5 @@
+import React from "react";
+
 export type StackTypes = {
   Home: undefined;
   Camera: undefined;
@@ -13,6 +15,7 @@ export type ImagePrevPropTypes = {
   source: string;
   location: CoordsType | null;
   time: string;
+  setImage: React.Dispatch<React.SetStateAction<string | null>>
 };
 export type CoordsType = {
   coords: {
